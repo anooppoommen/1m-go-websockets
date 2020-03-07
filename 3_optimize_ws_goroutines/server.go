@@ -1,12 +1,11 @@
 package main
 
 import (
+	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"syscall"
-
-	"github.com/gorilla/websocket"
 )
 
 var EventsCollector *eventsCollector
@@ -61,7 +60,7 @@ func Start() {
 	for {
 		connections, err := EventsCollector.Wait()
 		if err != nil {
-			log.Printf("Failed to epoll wait %v", err)
+			log.Printf("Failed during wait: %v", err)
 			continue
 		}
 		for _, conn := range connections {
